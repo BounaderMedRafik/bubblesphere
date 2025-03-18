@@ -1,10 +1,10 @@
-import ProfilePageContent from "@/components/core/ProfilePageContent";
+import ProflePageContent from "@/components/core/ProflePageContent";
 import React from "react";
 
-export default function ProfilePage() {
+export default function ProflePage() {
   return (
     <div>
-      <ProfilePageContent />
+      <ProflePageContent />
     </div>
   );
 }
