@@ -3,7 +3,7 @@ import PostingThought from "@/components/core/PostingThought";
 
 export default function Home() {
   return (
-    <div className=" wrapper  ">
+    <div className=" wrapper">
       <div>
         <PostingThought />
       </div>
