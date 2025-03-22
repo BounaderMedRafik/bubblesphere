@@ -39,8 +39,10 @@ import {
 import { Input } from "../ui/input";
 import { Skeleton } from "../ui/skeleton";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import CharacterCount from "@tiptap/extension-character-count";
 
 const PostingThought = ({ SpecifiedNeich }: { SpecifiedNeich?: string }) => {
+  const limit = 3000;
   const { user, isLoaded } = useUser();
   const { thumbnailUrl, isLoading, uploadThumbnail, clearThumbnail } =
     useUploadThumbnail();
@@ -76,6 +78,9 @@ const PostingThought = ({ SpecifiedNeich }: { SpecifiedNeich?: string }) => {
       Highlight,
       Placeholder.configure({
         placeholder: "Now tell me all about it here...",
+      }),
+      CharacterCount.configure({
+        limit: limit,
       }),
     ],
     editorProps: {
@@ -367,6 +372,33 @@ const PostingThought = ({ SpecifiedNeich }: { SpecifiedNeich?: string }) => {
                 {isLoading ? "Image Upload" : <Plus size={buttonIconSize} />}
                 {isLoading ? "" : "Post"}
               </Button>
+            </div>
+
+            <div className=" mt-4">
+              <div
+                className={cn(
+                  " text-sm opacity-75 font-bold",
+                  editor?.storage.characterCount.characters() == limit
+                    ? "text-destructive"
+                    : ""
+                )}
+              >
+                {editor?.storage.characterCount.characters()} / {limit}{" "}
+                <span className=" text-xs opacity-50 font-normal">
+                  Character
+                </span>
+              </div>
+              <div
+                className={cn(
+                  " text-sm opacity-75 font-bold",
+                  editor?.storage.characterCount.characters() == limit
+                    ? "text-destructive"
+                    : ""
+                )}
+              >
+                {editor?.storage.characterCount.words()}
+                <span className=" text-xs opacity-50 font-normal"> Word</span>
+              </div>
             </div>
           </div>
         )}

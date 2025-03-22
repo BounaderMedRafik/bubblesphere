@@ -251,7 +251,7 @@ const ProfileBannerAndInfos = ({
             <Dialog>
               <DialogTrigger asChild>
                 <Button
-                  variant="outline"
+                  variant="secondary"
                   size="sm"
                   className=" rounded-l-full "
                 >
