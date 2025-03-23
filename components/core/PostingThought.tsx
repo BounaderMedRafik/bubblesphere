@@ -16,6 +16,7 @@ import {
   Italic,
   Loader,
   Plus,
+  Sparkle,
   Strikethrough,
   X,
 } from "lucide-react";
@@ -40,6 +41,8 @@ import { Input } from "../ui/input";
 import { Skeleton } from "../ui/skeleton";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import CharacterCount from "@tiptap/extension-character-count";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import useCompletion from "@/utils/useCompletion";
 
 const PostingThought = ({ SpecifiedNeich }: { SpecifiedNeich?: string }) => {
   const limit = 3000;
@@ -52,6 +55,7 @@ const PostingThought = ({ SpecifiedNeich }: { SpecifiedNeich?: string }) => {
     SpecifiedNeich ? SpecifiedNeich : "General"
   );
   const [search, setSearch] = useState("");
+  const { isLoading: gptLoading, getCompletion, result } = useCompletion();
 
   const filteredNiches = englishNiches.filter((item) =>
     item.toLowerCase().includes(search.toLowerCase())
@@ -361,7 +365,34 @@ const PostingThought = ({ SpecifiedNeich }: { SpecifiedNeich?: string }) => {
               </BubbleMenu>
             )}
 
-            <EditorContent editor={editor} spellCheck={false} />
+            <div className="relative">
+              <EditorContent editor={editor} spellCheck={false} />
+              <div className="absolute top-0 right-0">
+                <Tooltip>
+                  <TooltipTrigger
+                    onClick={() => {
+                      getCompletion(title);
+                      editor?.commands.clearContent();
+                      editor?.commands.setContent(result);
+                    }}
+                  >
+                    <div className="size-5 cursor-pointer bg-primary rounded-full flex justify-center items-center">
+                      {gptLoading ? (
+                        <Loader
+                          className="text-background animate-spin"
+                          size={12}
+                        />
+                      ) : (
+                        <Sparkle className="text-background" size={12} />
+                      )}
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Use AI to generate description
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
 
             {/* Submit Button */}
             <div className="flex items-center justify-end mt-3">

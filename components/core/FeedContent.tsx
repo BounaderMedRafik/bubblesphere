@@ -79,8 +79,7 @@ const Tags = () => {
 };
 
 const TagPosts = () => {
-  const { posts, isLoading, error } = useFetchPostsByNeich("General");
-  console.log(posts, isLoading, error);
+  const { posts } = useFetchPostsByNeich("General");
   return (
     <div>
       {posts.map((post) => (

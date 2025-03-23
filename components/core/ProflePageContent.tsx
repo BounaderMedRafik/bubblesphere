@@ -152,10 +152,7 @@ const ProfileBannerAndInfos = ({
   clerkuser: SupaUser | null;
 }) => {
   const { user, isLoaded } = useUser();
-  const { updateBanner, error } = useChangeUserBanner(user?.id || "");
-
-  console.log("this error from yo mama", error);
-  console.log("nigga here is yo banner", clerkuser?.banner);
+  const { updateBanner } = useChangeUserBanner(user?.id || "");
 
   const handleBannerUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -655,8 +652,6 @@ export const FollowingList = ({ userid }: { userid: string | undefined }) => {
 
     fetchUsers();
   }, [followedUsers]);
-
-  console.log(followedUserData);
 
   return (
     <div>
