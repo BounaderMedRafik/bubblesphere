@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const API_KEY = process.env.GEMINI_API_KEY!;
+const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY!;
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
@@ -13,6 +13,7 @@ function useCompletion() {
     setIsLoading(true);
     try {
       const response = await model.generateContent(prompt);
+      console.log(result);
       setResult(response.response.text());
     } catch (error) {
       console.error("Error fetching completion:", error);
